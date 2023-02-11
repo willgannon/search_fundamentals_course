@@ -1,5 +1,171 @@
 {
   "settings": {
     "index.refresh_interval": "5s"
+  },
+  "mappings" : {
+    "properties" : {
+      "productId":{
+        "type": "long"
+      },
+      "sku":{
+        "type": "integer"
+      },
+      "name": {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+      "type":{
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+        "startDate":{
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+        },
+        "active":{
+          "type" : "boolean"
+        },
+        "regularPrice":{
+          "type" : "float"
+        },
+        "salePrice":{
+          "type" : "float"
+        },
+        "artistName":{
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+              }
+            }
+        },
+        "onSale":{
+          "type" : "boolean"
+        },
+        "digital":{
+          "type" : "boolean"
+        },
+        "frequentlyPurchasedWith":{
+          "type" : "integer"
+        },
+        "accessories":{
+          "type" : "integer"
+        },
+        "relatedProducts":{
+          "type" : "integer"
+        },
+        "salesRankShortTerm":{
+          "type" : "integer"
+        },
+        "salesRankMediumTerm":{
+          "type" : "integer"
+        },
+        "salesRankLongTerm":{
+          "type" : "integer"
+        },
+        "bestSellingRank":{
+          "type" : "integer"
+        },
+        "url":{
+          "type" : "keyword"
+        },
+        "customerReviewCount":{
+          "type" : "integer"
+        },
+        "customerReviewAverage":{
+          "type" : "float"
+        },
+        "inStoreAvailability":{
+          "type" : "boolean"
+        },
+        "onlineAvailability":{
+          "type" : "boolean"
+        },
+        "releaseDate":{
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+              }
+            }
+        },
+        "shippingCost":{
+          "type" : "float"
+        },
+        "shortDescription":{
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+              }
+            }
+        },
+        "shortDescriptionHtml":{
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+              }
+            }
+        },
+        "class":{
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+              }
+            }
+        },
+        "classId":{
+          "type" : "integer"
+        },
+        "subclass":{
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+              }
+            }
+        },
+        "subclassId":{
+          "type" : "integer"
+        },
+        "department":{
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+              }
+            }
+        },
+        "departmentId":{
+          "type" : "integer"
+        },
+        "bestBuyItemId":{
+          "type" : "integer"
+        }
+    }
   }
 }
