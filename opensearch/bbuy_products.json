@@ -7,9 +7,15 @@
       "productId":{
         "type": "long"
       },
-      "sku":{
-        "type": "integer"
-      },
+      "sku": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
       "name": {
           "type" : "text",
           "analyzer": "snowball",
@@ -63,13 +69,31 @@
           "type" : "boolean"
         },
         "frequentlyPurchasedWith":{
-          "type" : "integer"
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+              }
+            }
         },
         "accessories":{
-          "type" : "integer"
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+              }
+            }
         },
         "relatedProducts":{
-          "type" : "integer"
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+              }
+            }
         },
         "salesRankShortTerm":{
           "type" : "integer"
