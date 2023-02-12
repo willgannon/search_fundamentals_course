@@ -12,6 +12,7 @@
       },
       "name": {
           "type" : "text",
+          "analyzer": "snowball",
           "fields" : {
             "keyword" : {
               "type" : "keyword",
@@ -111,6 +112,7 @@
         },
         "shortDescription":{
           "type" : "text",
+          "analyzer": "snowball",
           "fields" : {
             "keyword" : {
               "type" : "keyword",
