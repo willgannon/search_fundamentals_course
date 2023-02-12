@@ -108,8 +108,6 @@ def query():
 
 def create_query(user_query, filters, sort="_score", sortDir="desc"):
     print("Query: {} Filters: {} Sort: {}".format(user_query, filters, sort))
-    # print(user_query)
-    
     query_obj = {
         "size": 10,
         "query": {
@@ -125,6 +123,40 @@ def create_query(user_query, filters, sort="_score", sortDir="desc"):
                     ],
                     "filter": filters
                     }
+        # # query below  works on OS dev tools but not here, can't find a way to merge the two 
+        #     "function_score": {
+        #         "query_string": {
+        #             "fields": ["name^100", "shortDescription^50", "longDescription^10"],
+        #             "query":  user_query,
+        #             "phrase_slop": 3
+        #         }
+        #     },
+        #     "filter": filters,
+        #     "boost_mode": "multiply",
+        #     "score_mode": "avg",
+        #     "functions": [
+        #     {
+        #         "field_value_factor": {
+        #             "field": "salesRankLongTerm",
+        #             "modifier": "reciprocal",
+        #             "missing": 100000000
+        #         }
+        #     },
+        #     {
+        #         "field_value_factor": {
+        #             "field": "salesRankMediumTerm",
+        #             "modifier": "reciprocal",
+        #             "missing": 100000000
+        #         }
+        #     },
+        #     {
+        #         "field_value_factor": {
+        #             "field": "salesRankShortTerm",
+        #             "modifier": "reciprocal",
+        #             "missing": 100000000
+        #         }
+        #     }
+        #     ]
         },
         "highlight": {
             "fields": {
