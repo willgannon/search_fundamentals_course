@@ -108,27 +108,75 @@ def query():
 
 def create_query(user_query, filters, sort="_score", sortDir="desc"):
     print("Query: {} Filters: {} Sort: {}".format(user_query, filters, sort))
+    # print(user_query)
+    
     query_obj = {
-        'size': 10,
+        "size": 10,
         "query": {
-            "query_string": {
-                "fields": ["name", "shortDescription", "longDescription"],
-                "query": "*",
-                "phrase_slop": 3
-                # "filter": [display_filters, applied_filters],
-
+            "bool": {
+                    "must": [
+                        {
+                            "query_string": {
+                                "fields": ["name", "shortDescription", "longDescription"],
+                                "query":  user_query,
+                                "phrase_slop": 3
+                            }
+                        }
+                    ],
+                    "filter": filters
+                    }
+        },
+        "highlight": {
+            "fields": {
+                "name": {},
+                "shortDescription": {},
+                "longDescription": {}
+                }
+        },
+        "sort": [
+            {
+            sort: {
+                "order": sortDir
+                }
             }
-        # "highlight": {
-        #     "fields":{
-        #         "name"
-        #     }
+        ],
+        "aggs": {
+            "department": {
+                "terms": {
+                    "field": "department.keyword"
+                }
+            },
+            "regularPrice": {
+                "range": {
+                    "field": "regularPrice",
+                    "ranges": [
+                        {
+                            "to": 5
+                        },
+                        {
+                            "from": 5,
+                            "to": 20
+                        },
+                        {
+                            "from": 20,
+                            "to": 50
+                        },
+                        {
+                            "from": 50,
+                            "to": 100
+                        }
+                        ,
+                        {
+                            "from": 100
+                        }
+                    ]
+                }
+            },
+            "missing_images": {
+                "terms": {
+                    "field": "image.keyword"
+                }
+            }
         }
-        # "sort": "name.keyword"
-        #     "match_all": {} # Replace me with a query that both searches and filters
-        # },
-        # "aggs": {
-        #     #### Step 4.b.i: create the appropriate query and aggregations here
-
-        # }
     }
     return query_obj
