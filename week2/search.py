@@ -58,13 +58,25 @@ def process_filters(filters_input):
 @bp.route('/autocomplete', methods=['GET'])
 def autocomplete():
     results = {}
+    opensearch = get_opensearch()
     if request.method == 'GET':  # a query has been submitted
         prefix = request.args.get("prefix")
         print(f"Prefix: {prefix}")
         if prefix is not None:
             type = request.args.get("type", "queries") # If type == queries, this is an autocomplete request, else if products, it's an instant search request.
             ##### W2, L3, S1
-            search_response = None
+            search_response = opensearch.search(
+                body={
+                    "suggest": {
+                        "autocomplete": {
+                            "prefix": prefix,
+                            "completion": {
+                                "field": "suggest"
+                            }
+                        }
+                    }
+                }
+            )
             print("TODO: implement autocomplete AND instant search")
             if (search_response and search_response['suggest']['autocomplete'] and search_response['suggest']['autocomplete'][0]['length'] > 0): # just a query response
                 results = search_response['suggest']['autocomplete'][0]['options']
@@ -106,7 +118,7 @@ def query():
 
         query_obj = qu.create_query(user_query,  [], sort, sortDir, size=20)  # We moved create_query to a utility class so we could use it elsewhere.
         ##### W2, L1, S2
-
+        qu.add_spelling_suggestions(query_obj, user_query)
         ##### W2, L2, S2
         print("Plain ol q: %s" % query_obj)
     elif request.method == 'GET':  # Handle the case where there is no query or just loading the page
@@ -121,7 +133,7 @@ def query():
             (filters, display_filters, applied_filters) = process_filters(filters_input)
         query_obj = qu.create_query(user_query,  filters, sort, sortDir, size=20)
         #### W2, L1, S2
-
+        qu.add_spelling_suggestions(query_obj, user_query)
         ##### W2, L2, S2
 
     else:
